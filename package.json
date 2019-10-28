@@ -13,6 +13,7 @@
   "devDependencies": {},
   "scripts": {
     "serve": "nodemon index.js",
+    "serve-node": "node index.js",
     "state": "node -e 'require(\"./helper/loadEnabled.js\")()'"
   },
   "author": "JoacoRu",
