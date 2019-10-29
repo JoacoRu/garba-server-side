@@ -10,12 +10,7 @@ class ProductsService {
             const enabled =  await EnabledService.get(productId);
             const responseEnabled = response.data['enabled_for_sale'];
             if (!enabled) {
-                EnabledService.create({"productId": productId, enabled: responseEnabled})
-                .catch(err => console.error(err));
-                console.info('entre')
-            } else if (enabled && enabled.enabled != responseEnabled) {
-                EnabledService.update(productId, {'enabled': responseEnabled})
-                .catch(err => console.error(err));
+                await EnabledService.create({"productId": productId, enabled: responseEnabled});
             }
         } catch (err) {
             return err;   
@@ -33,8 +28,13 @@ class ProductsService {
                 for (const key in payload) {
                     if (payload.hasOwnProperty(key)) {
                         const element = payload[key];
-                        let product = await EnabledModel.findOne({productId: element.id})
-                        element.enabled = product.enabled;
+                        const productId = element.id;
+                        let enabled = await EnabledService.get(productId);
+                        if (!enabled) {
+                            const product = await this.get(productId);
+                            element.enabled = product.enabled_for_sale;
+                        }
+                        element.enabled = enabled.enabled;                        
                     }
                 }
             }
@@ -48,7 +48,6 @@ class ProductsService {
     async update(productId, payload) {
         let response;
         try {
-            console.log('payload', payload)
             response = await EnabledService.update(productId, {enabled: payload}, {new: true});
         } catch (err) {
             console.error(err);

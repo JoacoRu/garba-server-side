@@ -9,7 +9,7 @@ class EnabledServices {
         return EnabledModel.find(search);
     }
 
-    async create(payload) {
+    create(payload) {
         let {productId, enabled} = payload;
         payload = {productId, enabled};
 
@@ -20,7 +20,9 @@ class EnabledServices {
     }
 
     async update(productId, payload) {
-        return EnabledModel.findOneAndUpdate({'productId': productId}, payload);
+        const enabled = await EnabledModel.findOneAndUpdate({'productId': productId}, payload);
+        enabled.enabled = payload.enabled;
+        return enabled;
     }
 }
 
