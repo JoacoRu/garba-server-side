@@ -8,7 +8,8 @@ class ProductsController {
 
         try {
             response = await ProductsService.get(productId);
-            if(response.enabled_for_sale) return res.status(404).send({message: 'El producto no fue encontrado'});
+            if (!response['enabled_for_sale']) return res.status(404).send({message: 'El producto no fue encontrado'});
+            console.info(response)
         } catch (err) {
             console.error(err)
             return res.status(502).send(err);
