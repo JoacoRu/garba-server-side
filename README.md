@@ -11,17 +11,10 @@ los datos de la app. No esta configurada para levantar con ENV, por lo tanto tod
 
 - Levantando la app
 
-1) Antes de levantar la app ejecutar el comando "npm run state", este comando realiza un fetch pidiendo todos los productos y
-luego teniendo el id de cada producto, recorre el objeto devuelto y guarda en la base de datos mongo si el producto esta "enabled".
-Si es necesario se puede ver el modelo en ./model/enabled.model.js . Esto se hace para emular que los datos 
-"Ya estan cargados desde antes". De esta forma podemos realizar nuestro metodo por "PATCH" y persistir los datos.
-
-2) Luego de haber realizado el paso nro 1, podemos levantar la app. Para levantar la app hay que ejecutar el comando 
-"npm run serve". Tener en cuenta que este comando utiliza nodemoon, si no esta instalado, ejecutar el comando 
-"npm run serve-node".
+1) Para levantar la app hay que ejecutar el comando "npm run serve".
 
 
--Endpoints
+- Endpoints
 
 Basicamente la app tiene 3 endpoints
 
